@@ -1,0 +1,16 @@
+[Unit]
+Description=Webhook Listener Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 webhook_listener.py
+WorkingDirectory=/home/%u/webhook_listener
+Restart=always
+User=%u
+Group=%u
+StandardOutput=append:logs/webhook.log
+StandardError=append:logs/webhook.log
+
+[Install]
+WantedBy=multi-user.target
+
