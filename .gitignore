@@ -1,0 +1,24 @@
+# Ignore log files
+logs/*.log
+
+# Ignore systemd service files (optional, if you don’t want to push them)
+services/*.service
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+*.swp
+
+# Ignore dependency files (if created automatically)
+Pipfile
+Pipfile.lock
+
