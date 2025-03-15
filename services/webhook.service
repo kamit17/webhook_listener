@@ -3,13 +3,13 @@ Description=Webhook Listener Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 %h/webhook-automation/webhook_listener.py
-WorkingDirectory=%h/webhook-automation
+ExecStart=/usr/bin/python3 <Your Project folder>/webhook_listener.py
+WorkingDirectory=/home/<Your User>/projects/webhook_listener
 Restart=always
-User=%u
-Group=%u
-StandardOutput=append:%h/webhook-automation/logs/webhook.log
-StandardError=append:%h/webhook-automation/logs/webhook_error.log
+User=<Your User>
+Group=<Your Group>
+StandardOutput=append:<Your Project folder>/logs/webhook.log
+StandardError=append:<Your Project folder>/logs/webhook_error.log
 
 [Install]
 WantedBy=multi-user.target

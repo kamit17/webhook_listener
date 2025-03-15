@@ -4,13 +4,12 @@ After=network.target
 
 [Service]
 ExecStart=/usr/local/bin/ngrok http 5000
-WorkingDirectory=%h/webhook-automation
+WorkingDirectory=/home/<Your User>/projects/webhook_listener
 Restart=always
-User=%u
-Group=%u
-StandardOutput=append:%h/webhook-automation/logs/ngrok.log
-StandardError=append:%h/webhook-automation/logs/ngrok_error.log
+User=<Your User>
+Group=<Your Group>
+StandardOutput=append:<Your Project folder>/logs/ngrok.log
+StandardError=append:<Your Project folder>/logs/ngrok_error.log
 
 [Install]
 WantedBy=multi-user.target
-
