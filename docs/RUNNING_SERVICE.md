@@ -8,7 +8,7 @@ sudo nano /etc/default/webhook_env
 ```
 Add:
 ```ini
-PROJECT_PATH=/home/docadmin/projects/webhook_listener
+PROJECT_PATH=<Your Project_Folder>/webhook_listener
 EMAIL_SENDER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password
 EMAIL_RECIPIENT=recipient@example.com
