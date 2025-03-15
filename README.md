@@ -27,15 +27,18 @@ Installation & Setup
 1. Install Dependencies
 Refer to 📄 INSTALLATION.md for detailed installation steps.
 
-2. Start ngrok
+2. Configure Email Notifications (yagmail)
+Follow 📄 CONFIGURE_EMAIL.md for full setup instructions.
+
+3. Start ngrok
 Refer to 📄 SETUP_WEBHOOK.md for webhook setup.
 
-3. Configuring GitHub Webhook
+4. Configuring GitHub Webhook
 Follow 📄 SETUP_WEBHOOK.md for full instructions.
 
-3. Running the Service
+5. Running the Service
 Refer to 📄 RUNNING_SERVICE.md for detailed steps.
 
-4. Troubleshooting
+6. Troubleshooting
  For common issues and solutions, refer to 📄 TROUBLESHOOTING.md.
 
