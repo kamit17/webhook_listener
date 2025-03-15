@@ -3,3 +3,4 @@ yagmail
 requests
 gunicorn
 
+python-dotenv
