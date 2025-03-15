@@ -8,7 +8,11 @@ sudo nano /etc/default/webhook_env
 ```
 Add:
 ```ini
-PROJECT_PATH=<your_project_path>/webhook_listener
+PROJECT_PATH=/home/docadmin/projects/webhook_listener
+EMAIL_SENDER=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+EMAIL_RECIPIENT=recipient@example.com
+
 ```
 
 ## 2️⃣ Configure systemd Services
@@ -21,8 +25,10 @@ sudo cp services/ngrok.service /etc/systemd/system/
 ## 3️⃣ Reload and Start Services
 ```sh
 sudo systemctl daemon-reload
-sudo systemctl enable webhook ngrok
-sudo systemctl start webhook ngrok
+sudo systemctl enable webhook
+sudo systemctl enable ngrok
+sudo systemctl start webhook
+sudo systemctl start ngrok
 ```
 
 ## 4️⃣ Check Service Status

@@ -1,5 +1,6 @@
-1. Install yagmail
+1. Install yagmail and python-dotenv
 pip install yagmail
+pip install python-dotenv
 
 2.Set up Gmail App Password (if using Gmail):
 Visit Google App Passwords.
