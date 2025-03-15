@@ -1,24 +1,20 @@
 # Ignore log files
 logs/*.log
 
-# Ignore systemd service files (optional, if you don’t want to push them)
-services/*.service
+# Ignore local systemd service files, but allow services in the repo
+# This prevents ignoring `services/*.service` inside the repo
+!/services/*.service
 
-# Ignore Python compiled files
+# Ignore environment variables file with sensitive paths
+config/webhook_env
+/etc/default/webhook_env
+
+# Ignore compiled Python files
 __pycache__/
 *.pyc
 *.pyo
 
-# Ignore virtual environments
-venv/
-.env/
-
 # Ignore IDE/editor config files
 .vscode/
 .idea/
-*.swp
-
-# Ignore dependency files (if created automatically)
-Pipfile
-Pipfile.lock
 
