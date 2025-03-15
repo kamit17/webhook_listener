@@ -1,38 +1,49 @@
-from flask import Flask, request, jsonify
+import os
 import yagmail
+from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 
+# Load environment variables from config/webhook_env
+load_dotenv("config/webhook_env")
+
+# Flask App Initialization
 app = Flask(__name__)
 
-# Email Configuration
-EMAIL_SENDER = ""  # Change this to your email
-EMAIL_PASSWORD = ""  # Use an App Password (Recommended)
-EMAIL_RECIPIENT = ""  # Email that receives notifications
+# Email Configuration from Environment Variables
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_RECIPIENT = os.getenv("EMAIL_RECIPIENT")
 
-SMTP_SERVER = "smtp.gmail.com"  # Use "smtp.gmail.com" for Gmail
-SMTP_PORT = 587  # Use 465 for SSL
+# Validate that email credentials are set
+if not EMAIL_SENDER or not EMAIL_PASSWORD or not EMAIL_RECIPIENT:
+    raise ValueError("❌ Missing email configuration. Check config/webhook_env")
 
 @app.route('/')
 def home():
-    return "Webhook Listener is Running!", 200
+    return "✅ Webhook Listener is Running!", 200
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
     data = request.json
-    print("Received Webhook Data:", data)
+    print("📩 Received Webhook Data:", data)
 
-    if 'pusher' in data:
+    # Extract relevant details from the webhook payload
+    if 'pusher' in data and 'repository' in data and 'head_commit' in data:
         sender = data['pusher']['name']
         repo = data['repository']['name']
         commit_message = data['head_commit']['message']
+        commit_url = data['head_commit']['url']
 
-        subject = f"New Commit in {repo} by {sender}"
+        subject = f"🔔 New Commit in {repo} by {sender}"
         body = f"""
-        A new commit was pushed to {repo} by {sender}.
+        A new commit was pushed to **{repo}** by **{sender}**.
 
-        Commit Message:
-        "{commit_message}"
+        📌 **Commit Message:**
+        ```
+        {commit_message}
+        ```
 
-        View Commit: {data['head_commit']['url']}
+        🔗 [View Commit]({commit_url})
         """
 
         # Send email notification
@@ -41,8 +52,9 @@ def webhook():
     return jsonify({"message": "Webhook processed"}), 200
 
 def send_email(subject, body):
+    """Function to send email using yagmail"""
     try:
-        yag = yagmail.SMTP(EMAIL_SENDER, EMAIL_PASSWORD, host=SMTP_SERVER, port=SMTP_PORT, smtp_starttls=True, smtp_ssl=False)
+        yag = yagmail.SMTP(EMAIL_SENDER, EMAIL_PASSWORD)
         yag.send(EMAIL_RECIPIENT, subject, body)
         print("✅ Email sent successfully")
     except Exception as e:
