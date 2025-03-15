@@ -3,13 +3,15 @@ Description=ngrok Service
 After=network.target
 
 [Service]
+EnvironmentFile=/etc/default/webhook_env
 ExecStart=/usr/local/bin/ngrok http 5000
-WorkingDirectory=/home/<Your User>/projects/webhook_listener
+WorkingDirectory=${PROJECT_PATH}
 Restart=always
-User=<Your User>
-Group=<Your Group>
-StandardOutput=append:<Your Project folder>/logs/ngrok.log
-StandardError=append:<Your Project folder>/logs/ngrok_error.log
+User=%u
+Group=%u
+StandardOutput=append:${PROJECT_PATH}/logs/ngrok.log
+StandardError=append:${PROJECT_PATH}/logs/ngrok_error.log
 
 [Install]
 WantedBy=multi-user.target
+
